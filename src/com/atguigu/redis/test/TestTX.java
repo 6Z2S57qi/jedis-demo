@@ -5,7 +5,7 @@ import redis.clients.jedis.Transaction;
 
 public class TestTX {
 	public boolean transMethod() throws InterruptedException {
-	     Jedis jedis = new Jedis("116.62.170.132", 6379);
+	     Jedis jedis = new Jedis("ip", 6379);
 	     int balance;// 可用余额
 	     int debt;// 欠额
 	     int amtToSubtract = 10;// 实刷额度
