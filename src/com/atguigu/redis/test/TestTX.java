@@ -14,6 +14,7 @@ public class TestTX {
 	     //jedis.set("balance","15");//此句不该出现，讲课方便。模拟其他程序已经修改了该条目
 	     //jedis.set("debt","30");
 	     Thread.sleep(7000);
+	     
 	     balance = Integer.parseInt(jedis.get("balance"));
 	     if (balance < amtToSubtract) {
 	       jedis.unwatch();

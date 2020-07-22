@@ -26,6 +26,7 @@ public class JedisPoolUtil
 
 					jedisPool = new JedisPool(poolConfig,"ip",6379);
 				}
+				
 			}
 		}
 		return jedisPool;

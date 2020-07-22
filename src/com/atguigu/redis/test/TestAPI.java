@@ -61,7 +61,7 @@ public class TestAPI {
 		for(String temp:list) {
 		    System.out.print(temp+"\t");
 		}System.out.println();
-		
+
 		jedis.lpop("list1");
         jedis.rpop("list1");
         list = jedis.lrange("list1", 0, -1);
@@ -74,6 +74,7 @@ public class TestAPI {
 		
 		//set
 		System.out.println("----------Set------------");
+		
 		//hash
 		System.out.println("----------Hash------------");
 		//zset

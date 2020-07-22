@@ -8,6 +8,7 @@ public class TestMS {
 		Jedis jedis_S = new Jedis("ip",6380);
 		
 		jedis_S.slaveof("ip",6379);
+	
 		
 		jedis_M.set("class","1122V2");
 		
