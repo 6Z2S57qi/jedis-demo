@@ -1,7 +1,9 @@
 package com.atguigu.redis.test;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import redis.clients.jedis.Jedis;
@@ -9,7 +11,7 @@ import redis.clients.jedis.Jedis;
 public class TestAPI {
 	public static void main(String[] args) 
 	{
-		Jedis jedis = new Jedis("116.62.170.132",6379);
+		Jedis jedis = new Jedis("ip",6379);
 		
 		//key
 		System.out.println("----------key------------");
@@ -23,8 +25,7 @@ public class TestAPI {
 //		for(Iterator<String> iterator = sets.iterator();iterator.hasNext();) {
 //		    String key = (String)iterator.next();
 //		    System.out.print(key+":"+jedis.get(key)+"\t");
-//		}
-		System.out.println();
+//		}System.out.println();
 		
 		System.out.println("exits:"+jedis.exists("k3"));
 		System.out.println("expire:设置过期时间");
@@ -74,10 +75,51 @@ public class TestAPI {
 		
 		//set
 		System.out.println("----------Set------------");
+		jedis.sadd("set1", "set001");
+		jedis.sadd("set1", "set002");
+		jedis.sadd("set1", "set003");
+		Set<String> set1 = jedis.smembers("set1");
+        for (Iterator<String> iterator = set1.iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            System.out.print(key + ":" + jedis.get(key) + "\t");
+        }System.out.println();
+        
+        jedis.srem("set1", "set002");
+        System.out.println(jedis.smembers("set1").size());
 		
 		//hash
 		System.out.println("----------Hash------------");
+		jedis.hset("hash1", "name", "zhangsan");
+		System.out.println(jedis.hget("hash1", "name"));
+		
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("sex", "man");
+		map.put("telphone","13018023456");
+		jedis.hmset("hash1", map);
+		List<String> result = jedis.hmget("hash1", "name","sex","telphone");
+		for(String temp:result) {
+		    System.out.print(temp+"\t");
+		}System.out.println();
+		
+		Map<String,String> result2 = jedis.hgetAll("hash1");
+        for(Map.Entry<String, String> temp:result2.entrySet()) {
+            System.out.print(temp.getKey()+":"+temp.getValue()+"\t");
+        }System.out.println();
+        
+        System.out.println("exists:"+jedis.hexists("hash1", "name"));
+
 		//zset
 		System.out.println("----------ZSet------------");
+		jedis.zadd("zset1", 70d,"v1");
+		jedis.zadd("zset1", 60d,"v2");
+		jedis.zadd("zset1", 80d,"v3");
+		jedis.zadd("zset1", 90d,"v4");
+		
+		Set<String> zset1 = jedis.zrange("zset1", 0, -1);
+        for (Iterator iterator = zset1.iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            System.out.print(key + ":" + jedis.get(key) + "\t");
+        }System.out.println();
+        
 	}
 }
