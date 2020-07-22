@@ -1,0 +1,1 @@
+通过jedis实现对redis的运用。该项目主要是巩固自己对Jedis的API和redis使用。
